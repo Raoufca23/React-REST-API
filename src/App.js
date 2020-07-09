@@ -1,24 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+//import Login from './Components/Auth/Login'
+import AddUser from "./Components/User/addUser";
+import EditUser from "./Components/User/editUser";
+import ListUser from "./Components/User/listUsers";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <a href="/users" className="navbar-brand">
+              e-OPR Admin Pan
+            </a>
+            <div className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/users"} className="nav-link">
+                  <button className="btn btn-secondary">
+                    Users  
+                  </button>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/add"} className="nav-link">
+                  <button className="btn btn-success">
+                    Ajouter
+                  </button>
+                </Link>
+              </li>
+            </div>
+          </nav>
+
+          <div className="container mt-3">
+            <Switch>
+              <Route exact path={["/", "/users"]} component={ListUser} />
+              <Route exact path="/add" component={AddUser} />
+              <Route path="/users/:id" component={EditUser} />
+            </Switch>
+          </div>
+      </Router>
     </div>
   );
 }
